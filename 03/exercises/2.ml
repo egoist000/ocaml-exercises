@@ -42,3 +42,35 @@ let rec tutti_minori n =
         in num < n && tutti_minori n
     with _ -> true
 
+(* D *)
+(* occorre: int -> bool *)
+(* occorre n = true se il numero occorre nella sequenza, false altrimenti *)
+
+let rec occorre n =
+    try let num = read_int ()
+        in n = num || occorre n
+    with _ -> false
+
+(* E *)
+(* num_di_stringhe: unit -> int *)
+(* num_di_stringhe () = legge una sequenza di stringhe non vuote separate da 
+ * ENTER e terminata dalla stringa vuota e ritorna il numero di stringhe *)
+
+let rec num_di_stringhe () =
+    let line = read_line ()
+    in if line = "" then 0
+    else 1 + num_di_stringhe ()
+
+(* F *)
+(* stringa_max: unit -> string *)
+(* stringa_max () = ritorna la stringa piu lunga della sequenza *)
+
+let stringa_max () =
+    (* loop: string -> string *)
+    (* loop max_s = la stringa più grande della lista, grande almeno max_s *)
+    let rec loop max_s =
+        let line = read_line () 
+        in if line = "" then max_s
+        (* In caso di stringhe di stessa lunghezza si preferisce l'ultima *)
+        else loop (max line max_s)
+    in loop ""
