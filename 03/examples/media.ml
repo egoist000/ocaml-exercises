@@ -15,7 +15,7 @@ let media file =
         with _ -> close_in inputchan; (0, 0)
     in let (n, somma) = loop ()
     in print_string ("Letti "^(string_of_int n)^
-                     " interi\Somma: "^(string_of_int somma)^
+                     " interi\nSomma: "^(string_of_int somma)^
                      "\nMedia: "^
                      (string_of_float ((float_of_int somma)/.(float_of_int n)))
                      ^"\n")
