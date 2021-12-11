@@ -52,3 +52,15 @@ let rec subset_search_printall set n =
                  | NotFound -> aux solution rest
     in try aux [] set with
     | NotFound -> ()
+
+let search_all set n =
+    let rec aux solution altri =
+        let somma = sumof solution
+        in if somma > n then []
+        else if somma = n then [solution]
+        else match altri with
+        | [] -> []
+        | x::rest ->
+                (aux (x::solution) rest) @ (aux solution rest)
+    in aux [] set
+
