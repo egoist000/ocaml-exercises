@@ -7,11 +7,11 @@
 (** Rappresentazione del labirinto **)
 
 (*   0  1  2  3  4
-   0       M
-   1    M     M
-   2          M   
-   3 M        
-   4       M   
+   0       
+   1         
+   2             
+   3       
+   4          
 *)
 
 (* Rappresentazione delle caselle contententi mostri *)
