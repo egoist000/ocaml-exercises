@@ -97,3 +97,24 @@ let rec tutte_liste_con n x y =
         List.map (function lst -> x::lst) tlc @
         List.map (function lst -> y::lst) tlc
 
+(* interleave: 'a -> 'a list -> 'a list list *)
+(* interleave x lst = tutte le liste che si ottengono inserendo x in ogni
+ * posizione di lst *)
+
+let rec interleave x = function
+    | [] -> [[x]]
+    | y::rest ->
+            (x::y::rest)::(List.map (function e ->
+                y::e) (interleave x rest))
+
+(* permut: 'a list -> 'a list list *)
+(* permut lst = una lista con tutte le permutazioni di lst *)
+
+let rec permut = function
+    | [] -> [[]]
+    | x::rest ->
+            List.flatten 
+            (List.map (interleave x) (permut rest))
+
+
+
