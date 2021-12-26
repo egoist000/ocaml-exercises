@@ -20,9 +20,10 @@ let albero2 =
 
 let rec max_common_subtree t1 t2 =
   match (t1, t2) with
-  | Empty, Tr _ | Tr _, Empty -> 
-          Tr ("@", Empty, Empty)
+  | Empty, Tr _ | Tr _, Empty ->
+      Tr ("@", Empty, Empty)
   | Tr (x, l1, r1), Tr (y, l2, r2) ->
       if x <> y then Tr ("@", Empty, Empty)
       else Tr (x, max_common_subtree l1 l2, max_common_subtree r1 r2)
-  | _ -> Empty
+  | _ ->
+      Empty
