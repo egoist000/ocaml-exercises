@@ -10,7 +10,8 @@ let rec extract index = function
 (* Generate a random permutation of the elements of a list. (easy) *)
 
 let rec permutation = function
-    | [] -> []
-    | x::rest as lst ->
-            let (el, newlst) = extract (Random.int (List.length lst)) lst
-            in el::permutation newlst
+  | [] ->
+      []
+  | x :: rest as lst ->
+      let el, newlst = extract (Random.int (List.length lst)) lst in
+      el :: permutation newlst
