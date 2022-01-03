@@ -6,6 +6,8 @@
 
 type ('a, 'b) tree = Empty | Tr of ('a * 'b) * ('a, 'b) tree * ('a, 'b) tree
 
+type 'a tree = Empty | Tr of 'a * 'a tree * 'a tree
+
 (* abr_check: ('a * 'b) tree -> bool *)
 (* abr_check t = true se t è un albero binario di ricerca, false altrimenti *)
 
@@ -80,3 +82,32 @@ let rec abr_delete t key =
       else
         let lbl, tr = abr_delmin r in
         Tr (lbl, l, tr)
+
+(* tree_sort *)
+
+(* abr_insert: 'a tree * 'a -> 'a tree *)
+
+let inorder tr =
+  let rec aux tmp = function
+    | Empty ->
+        tmp
+    | Tr (x, l, r) ->
+        aux (x :: aux tmp r) l
+  in
+  aux [] tr
+
+let rec abr_insert t key =
+  match t with
+  | Empty ->
+      Tr (key, Empty, Empty)
+  | Tr (k, l, r) ->
+      if key <= k then Tr (k, abr_insert l key, r)
+      else Tr (k, l, abr_insert r key)
+
+let rec costruisci_tree = function
+  | [] ->
+      Empty
+  | x :: rest ->
+      abr_insert (costruisci_tree rest) x
+
+let tree_sort lst = inorder (costruisci_tree lst)
