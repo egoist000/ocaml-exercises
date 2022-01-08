@@ -1,4 +1,3 @@
-
 let rec vicini nodo = function
   | [] ->
       []
@@ -78,19 +77,20 @@ let path ((grafo, contenuti) : 'a labirinto) ingresso uscita =
 
 (* Ora vogliamo in uscita il cammino e la lista degli oggetti raccolti*)
 
-let path ((grafo, contenuti): 'a labirinto) ingresso uscita =
-    let rec cerca_da visited casella = 
-        if List.mem casella visited || has_monster casella contenuti
-        then raise Not_found
-        else if casella = uscita
-        then ([casella], content casella contenuti)
-        else
-            let (cammino, oggetti) = 
-                cerca_da_una_tra (casella::visited) (vicini casella grafo)
-            in (casella::cammino, (content casella contenuti) @ oggetti)
-                and cerca_da_una_tra visited = function
-                    | [] -> raise Not_found
-                    | x::rest ->
-                            try cerca_da visited x
-                            with Not_found -> cerca_da_una_tra visited rest
-            in cerca_da [] ingresso
+let path ((grafo, contenuti) : 'a labirinto) ingresso uscita =
+  let rec cerca_da visited casella =
+    if List.mem casella visited || has_monster casella contenuti then
+      raise Not_found
+    else if casella = uscita then ([casella], content casella contenuti)
+    else
+      let cammino, oggetti =
+        cerca_da_una_tra (casella :: visited) (vicini casella grafo)
+      in
+      (casella :: cammino, content casella contenuti @ oggetti)
+  and cerca_da_una_tra visited = function
+    | [] ->
+        raise Not_found
+    | x :: rest -> (
+      try cerca_da visited x with Not_found -> cerca_da_una_tra visited rest )
+  in
+  cerca_da [] ingresso
