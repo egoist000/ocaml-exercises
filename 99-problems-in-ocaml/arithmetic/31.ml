@@ -1,11 +1,8 @@
 (* Determine whether a given integer number is prime. (medium) *)
 
 let is_prime n =
-    if n <= 3 then n > 1
-    else if n mod 2 = 0 || n mod 3 = 0 then false
-    else let rec aux i =
-        if (i * i) >= n then true
-        else if n mod i = 0 || n mod (i + 2) = 0 then false
-        else aux (i + 6)
-    in aux 5
+    let n = abs n in
+    let rec is_not_divisor d =
+      d * d > n || (n mod d <> 0 && is_not_divisor (d + 1)) in
+    n <> 1 && is_not_divisor 2;;
 
